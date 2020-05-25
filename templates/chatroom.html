@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block heading %}
+    Chatroom
+{% endblock %}
+
+{% block body %}
+    <p>
+        <form id="chat_form">
+            <input id="chat" autocomplete="off" name="Chat" autofocus placeholder="Type Here" type="text">
+            <input type="submit">
+        </form>
+    </p>
+
+{% endblock %}
