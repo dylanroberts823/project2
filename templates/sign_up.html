@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      // Create username when button is clicked
+      document.addEventListener('DOMContentLoaded', function() {
+          document.querySelector('#user_form').onsubmit = function() {
+              var username = document.querySelector('#username').value;
+              localStorage.setItem('username', username);
+              alert(`Hello ${username}!`);
+          };
+      });
+    </script>
+  </head>
+
+<body>
+    <p>
+        <h2>Welcome to Chit Chat! Please choose a username to get started!</h2>
+        <form id="user_form" action="{{ url_for('sign_up') }}" method = "post" >
+            <input id="username" autocomplete="off" name="username" autofocus placeholder="Username" type="text">
+            <input type="submit">
+        </form>
+    </p>
+  </body>
+</html>
