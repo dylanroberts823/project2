@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.onclick = () => {
               // Create new item for list
               var msg = document.querySelector('#task').value;
-              socket.emit('submit msg', {'msg': msg});
+              socket.emit('submit msg', msg);
             };
         });
     });
@@ -20,14 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('msg totals', messages => {
         var last_msg = messages[messages.length - 1];
         // Add new item to task list
-        document.querySelector('#tasks').append(li);
+        document.querySelector('#tasks').append(last_msg);
 
-        document.querySelector('#yes').innerHTML = data.yes;
-        document.querySelector('#no').innerHTML = data.no;
-        document.querySelector('#maybe').innerHTML = data.maybe;
+        //document.querySelector('#yes').innerHTML = data.yes;
+        //document.querySelector('#no').innerHTML = data.no;
+        //document.querySelector('#maybe').innerHTML = data.maybe;
     });
 });
-
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     // By default, submit button is disabled
@@ -59,3 +59,4 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 });
+*/
