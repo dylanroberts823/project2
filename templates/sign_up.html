@@ -1,25 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script>
-      // Create username when button is clicked
-      document.addEventListener('DOMContentLoaded', function() {
-          document.querySelector('#user_form').onsubmit = function() {
-              var username = document.querySelector('#username').value;
-              localStorage.setItem('username', username);
-              alert(`Hello ${username}!`);
-          };
-      });
-    </script>
-  </head>
+    <head>
+        <script src="sign_up.js">
+        </script>
 
-<body>
-    <p>
-        <h2>Welcome to Chit Chat! Please choose a username to get started!</h2>
-        <form id="user_form" action="{{ url_for('sign_up') }}" method = "post" >
-            <input id="username" autocomplete="off" name="username" autofocus placeholder="Username" type="text">
-            <input type="submit">
+        <title>Sign Up</title>
+    </head>
+    <body>
+        <h1 id="user_display"></h1>
+        <form id="set-user">
+            <input id="user" autocomplete="off" autofocus placeholder="Username" type="text">
+            <input id="submit" type="submit">
         </form>
-    </p>
-  </body>
+    </body>
 </html>
