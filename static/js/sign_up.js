@@ -4,6 +4,7 @@ if (!localStorage.getItem('user'))
 
 // Load current value of  counter
 document.addEventListener('DOMContentLoaded', () => {
+
     document.querySelector('#user_display').innerHTML = localStorage.getItem('user');
 
     /* Could not manage to make it work
