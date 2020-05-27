@@ -1,48 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    // Connect to websocket
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-
-    // When connected, configure buttons
-    socket.on('connect', () => {
-
-        // Each button should emit a "submit vote" event
-        document.querySelectorAll('button').forEach(button => {
-            button.onclick = () => {
-              // Create new item for list
-
-              var msg = document.querySelector('#task').value;
-
-              socket.emit('submit msg', msg);
-            };
-        });
-    });
-
-    // When a new vote is announced, add to the unordered list
-    socket.on('msg totals', messages => {
-        //Create list item
-        const li = document.createElement('li');
-        li.innerHTML = messages[messages.length - 1];
-
-        // Add new item to task list
-        document.querySelector('#tasks').append(li);
-
-        // Clear input field and disable button again
-        document.querySelector('#task').value = '';
-        document.querySelector('#submit').disabled = true;
-
-        // Stop form from submitting
-        return false;
-
-        //document.querySelector('#yes').innerHTML = data.yes;
-        //document.querySelector('#no').innerHTML = data.no;
-        //document.querySelector('#maybe').innerHTML = data.maybe;
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-
-
     // By default, submit button is disabled
     document.querySelector('#submit').disabled = true;
 
@@ -54,22 +10,40 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#submit').disabled = true;
     };
 
-    document.querySelector('#new-task').onsubmit = () => {
+    // Connect to websocket
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
-        // Create new item for list
+    // When connected, configure buttons
+    socket.on('connect', () => {
+
+        // Each button should emit a "submit vote" event
+        document.querySelector('#new-task').onsubmit = () => {
+          // Create new item for list
+          const msg = document.querySelector('#task').value;
+
+          //Send to SocketIO
+          socket.emit('submit msg', msg);
+
+          // Clear input field and disable button again
+          document.querySelector('#task').value = '';
+          document.querySelector('#submit').disabled = true;
+
+          // Stop form from submitting
+          return false;
+        };
+    });
+
+    // When a new vote is announced, add to the unordered list
+    socket.on('msg totals', messages => {
+        //Create list item
         const li = document.createElement('li');
-        li.innerHTML = document.querySelector('#task').value;
+        li.innerHTML = messages[messages.length - 1];
 
         // Add new item to task list
         document.querySelector('#tasks').append(li);
 
-        // Clear input field and disable button again
-        document.querySelector('#task').value = '';
-        document.querySelector('#submit').disabled = true;
-
-        // Stop form from submitting
-        return false;
-    };
-
+        //document.querySelector('#yes').innerHTML = data.yes;
+        //document.querySelector('#no').innerHTML = data.no;
+        //document.querySelector('#maybe').innerHTML = data.maybe;
+    });
 });
-*/
