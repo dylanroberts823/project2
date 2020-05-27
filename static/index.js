@@ -35,12 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // When a new vote is announced, add to the unordered list
     socket.on('msg totals', messages => {
-        //Create list item
-        const li = document.createElement('li');
-        li.innerHTML = messages[messages.length - 1];
+        //clear list
+        document.querySelector('#tasks').innerHTML = "";
 
-        // Add new item to task list
-        document.querySelector('#tasks').append(li);
+        //Create list item
+        messages.forEach((msg) => {
+          //create new object
+          const li = document.createElement('li');
+          li.innerHTML = msg;
+
+          // Add new item to task list
+          document.querySelector('#tasks').append(li);
+        })
 
         //document.querySelector('#yes').innerHTML = data.yes;
         //document.querySelector('#no').innerHTML = data.no;
