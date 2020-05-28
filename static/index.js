@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    //Future project: figure out how to get it to load immediately
     // By default, submit button is disabled
     document.querySelector('#submit').disabled = true;
 
@@ -15,14 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // When connected, configure buttons
     socket.on('connect', () => {
-
         // Each button should emit a "submit vote" event
         document.querySelector('#new-task').onsubmit = () => {
           // Create new item for list
           const msg = document.querySelector('#task').value;
 
-          //Send to SocketIO
-          socket.emit('submit msg', msg);
+          //Get time
+          const time = Date();
+
+          //Send to SocketIO as JSON
+          socket.emit('submit msg', {"msg":msg, "time":time});
 
           // Clear input field and disable button again
           document.querySelector('#task').value = '';
@@ -40,16 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //Create list item
         messages.forEach((msg) => {
-          //create new object
-          const li = document.createElement('li');
-          li.innerHTML = msg;
+          //Create new object
+          var para = document.createElement("P");
+          para.innerText = msg["msg"] + "\n" + msg["time"];
 
           // Add new item to task list
-          document.querySelector('#tasks').append(li);
+          document.querySelector('#tasks').append(para);
         })
-
-        //document.querySelector('#yes').innerHTML = data.yes;
-        //document.querySelector('#no').innerHTML = data.no;
-        //document.querySelector('#maybe').innerHTML = data.maybe;
     });
 });
