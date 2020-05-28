@@ -1,39 +1,19 @@
-// Set starting value of counter to 0
-if (!localStorage.getItem('user'))
-    localStorage.setItem('user', "");
-    
+//If there is no username, get one via a prompt. Else, display it!
+//Check if there is a username
+if(!localStorage.getItem('user')){
+  //If there isn't prompt them for one
+  var user = prompt("Please enter a username", "Username");
+  while (user == null || user == "") {
+    //If they refuse to do so, prompt them again
+    user = prompt("Sorry, that's username is mandatory. Please enter a username", "Username");
+  }
+  //Set given username to local storage
+  localStorage.setItem('user', user);
+}
+//Test to be sure name was properly stored
+console.log(localStorage.getItem('user'));
 
-// Load current value of  counter
+//Display name inside text body
 document.addEventListener('DOMContentLoaded', () => {
-
-    // By default, submit button is disabled
-    document.querySelector('#submit').disabled = true;
-
-    // Enable button only if there is text in the input field
-    document.querySelector('#user').onkeyup = () => {
-        if (document.querySelector('#user').value.length > 0)
-            document.querySelector('#submit').disabled = false;
-        else
-            document.querySelector('#submit').disabled = true;
-    };
-
-    document.querySelector('#user_display').innerHTML = localStorage.getItem('user');
-
-
-    document.querySelector('#set-user').onsubmit = () => {
-      // Create new item for list
-      const user_temp = document.querySelector('#user').value;
-
-      // Update user
-      document.querySelector('#user_display').innerHTML = user_temp;
-      localStorage.setItem('user', user_temp);
-      console.log(user);
-
-      // Clear input field and disable button again
-      document.querySelector('#user').value = '';
-      document.querySelector('#submit').disabled = true;
-
-      // Stop form from submitting
-      return false;
-    };
+  document.querySelector('#user_display').innerHTML = localStorage.getItem('user');
 });
