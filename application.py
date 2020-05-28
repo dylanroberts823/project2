@@ -12,7 +12,7 @@ messages = []
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("chatroom.html", messages=messages)
 
 @app.route("/sign_up")
 def sign_up():

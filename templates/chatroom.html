@@ -1,15 +1,19 @@
-{% extends "layout.html" %}
-{% block heading %}
-    Chatroom
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script src="{{ url_for('static', filename='index.js') }}"></script>
+        <title>Vote</title>
+    </head>
+    <body>
 
-{% block body %}
-    <p>
-      Hi {{username}}!
-        <form id="chat_form">
-            <input id="chat" autocomplete="off" name="Chat" autofocus placeholder="Type Here" type="text">
-            <input type="submit">
+        <h1>Tasks</h1>
+        <ul id="tasks">
+        </ul>
+        <form id="new-task">
+            <input id="task" autocomplete="off" autofocus placeholder="New Task" type="text">
+            <input id="submit" type="submit"></input>
         </form>
-    </p>
-
-{% endblock %}
+        <div id="task_array">{{messages}}</div>
+    </body>
+</html>
