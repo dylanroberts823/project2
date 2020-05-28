@@ -21,11 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
           // Create new item for list
           const msg = document.querySelector('#task').value;
 
+          //Get user
+          const user = localStorage.getItem('user');
+
           //Get time
           const time = Date();
 
-          //Send to SocketIO as JSON
-          socket.emit('submit msg', {"msg":msg, "time":time});
+          //Send message, user and time to SocketIO as JSON
+          socket.emit('submit msg', {"msg":msg, "user":user, "time":time});
 
           // Clear input field and disable button again
           document.querySelector('#task').value = '';
@@ -45,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         messages.forEach((msg) => {
           //Create new object
           var para = document.createElement("P");
-          para.innerText = msg["msg"] + "\n" + msg["time"];
+          para.innerText = msg["msg"] + "\n" + "Sent by " + msg["user"] + " at " + msg["time"];
 
           // Add new item to task list
           document.querySelector('#tasks').append(para);
