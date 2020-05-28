@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="/static/sign_up.js"></script>
+        <script src="{{ url_for('static', filename='sign_up.js') }}"></script>
         <title>Sign Up</title>
     </head>
     <body>
         <h1 id="user_display"></h1>
         <form id="set-user">
             <input id="user" autocomplete="off" autofocus placeholder="Username" type="text">
-            <input type="submit"></input>
+            <input id="submit" type="submit"></input>
         </form>
 
     </body>
