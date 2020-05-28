@@ -12,15 +12,7 @@ messages = []
 
 @app.route("/")
 def index():
-    return render_template("chatroom.html", messages=messages)
-
-@app.route("/sign_up")
-def sign_up():
-    return render_template("sign_up.html")
-
-@app.route("/chatroom")
-def chatroom():
-    return render_template("chatroom.html", messages=messages)
+    return render_template("index.html", messages=messages)
 
 @socketio.on("submit msg")
 def msg(msg):

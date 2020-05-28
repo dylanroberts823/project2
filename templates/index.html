@@ -2,25 +2,38 @@
 <html>
     <head>
         <script>
+        if(!localStorage.getItem('user')){
+          //If there isn't prompt them for one
+          var user = prompt("Please enter a username", "Username");
+          while (user == null || user == "") {
+            //If they refuse to do so, prompt them again
+            user = prompt("Sorry, that's username is mandatory. Please enter a username", "Username");
+          }
+          //Set given username to local storage
+          localStorage.setItem('user', user);
+        }
+        //Test to be sure name was properly stored
+        console.log(localStorage.getItem('user'));
 
-            // Set username
-
-              function hello()
-              <!document.querySelector('#username').value>
-                  document.querySelector('#username_display').innerHTML = 'Goodbye';
-              };
-
+        //Display name inside text body
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelector('#user_display').innerHTML = localStorage.getItem('user');
+        });
         </script>
+        <script src="{{ url_for('static', filename='sign_up.js') }}"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script src="{{ url_for('static', filename='index.js') }}"></script>
         <title>ChitChat</title>
     </head>
     <body>
-      <div>
-      <form id="user_form" >
-          <input id="username" autocomplete="off" name="username" autofocus placeholder="Username" type="text">
-          <button onclick="hello()">Click Here!</button>
+      <h1 id=user_display></h1>
+      <h2>Channel Name</h2>
+      <ul id="tasks">
+      </ul>
+      <form id="new-task">
+          <input id="task" autocomplete="off" autofocus placeholder="New Task" type="text">
+          <input id="submit" type="submit"></input>
       </form>
-      </div>
-      <div id=username_display>
-      </div>
+      <div id="task_array">{{messages}}</div>
     </body>
 </html>
