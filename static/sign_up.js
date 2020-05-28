@@ -7,22 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('#user_display').innerHTML = localStorage.getItem('user');
 
-    /* Could not manage to make it work
-    // By default, submit button is disabled
-    document.getElementById('#submit_btn').disabled = true;
 
-    // Enable button only if there is text in the input field
-    document.querySelector('#user').onkeyup = () => {
-        if (document.querySelector('#user').value.length > 0) {
-            document.getElementById('#submit_btn').disabled = false;
-          }
-        else {
-            document.getElementById('#submit_btn').disabled = true;
-          }
+    document.querySelector('#set-user').onsubmit = () => {
+      // Create new item for list
+      const user_temp = document.querySelector('#user').value;
+
+      // Update user
+      document.querySelector('#user_display').innerHTML = user_temp;
+      localStorage.setItem('user', user_temp);
+      console.log(user);
+
+      // Clear input field and disable button again
+      document.querySelector('#user').value = '';
+      document.querySelector('#submit').disabled = true;
+
+      // Stop form from submitting
+      return false;
     };
-    */
 
-
+    /*
     // Count every time button is clicked
     document.querySelector('button').onclick = () => {
         // Identify input in field
@@ -35,4 +38,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear input field and disable button again
         document.querySelector('#user').value = '';
     }
+    */
 });
