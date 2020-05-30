@@ -39,20 +39,4 @@ document.addEventListener('DOMContentLoaded', () => {
           };
       });
     });
-    /*
-
-              //Create list item
-              messages.forEach((msg) => {
-                //Create new object
-                if(msg["channel"] == selection){
-                  var para = document.createElement("P");
-                  para.innerText = msg["msg"] + "\n" + "Sent by " + msg["user"] + " at " + msg["time"];
-
-                  // Add new item to message list
-                  document.querySelector('#messages').append(para);
-                };
-              })
-          };
-        });
-  }); */
 });

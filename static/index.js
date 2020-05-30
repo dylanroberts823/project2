@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //Get current channel
         const channel = localStorage.getItem('current_channel');
-        
+
         //Create list item
         messages.forEach((msg) => {
           //Create new object
@@ -61,6 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add new item to message list
             document.querySelector('#messages').append(para);
           };
-        })
+        });
     });
 });

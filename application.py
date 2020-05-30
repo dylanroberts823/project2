@@ -13,17 +13,18 @@ socketio = SocketIO(app)
 messages = []
 #The chat array will contain all the chats, with their respective names and messages, and those messages' information
 #Json Chat object will be {chat_id: chat_id; chat_messages : messages}
-channels = [{"channel_id": "General", "channel_messages":[]},
-            {"channel_id": "Alt1", "channel_messages":[]},
-            {"channel_id": "Alt2", "channel_messages":[]}]
+channels = [{"channel_id": "General"},
+            {"channel_id": "Alt1"},
+            ]
 
 @app.route("/")
 def index():
     return render_template("index.html", messages=messages, channels=channels)
 
-@app.route("/create", methods=["POST"])
+@app.route("/create", methods=["GET", "POST"])
 def book():
     """Create a chat"""
+    #Make sure user is logged in
 
     # Get form information.
     name = request.form.get("name")
@@ -43,5 +44,17 @@ def msg(msg):
     emit("msg totals", messages, broadcast=True)
 
 @socketio.on("load channel")
-def msg():
+def load_channel():
     emit("msg totals", messages, broadcast=True)
+
+@socketio.on("create channel")
+def create_channel(new_channel):
+    #Verify that the new channel doesn't clash with any pre-existing ones
+    for channel in channels:
+        if channel["channel_id"] == new_channel:
+            return render_template('error.html', error="That channel already exists, please try again")
+    #Since new channel doesn't conflict, save it to our list
+    channel_obj = {"channel_id": new_channel}
+    channels.append(channel_obj)
+    #Update all the other channels
+    emit("redirect channel", new_channel, broadcast=True)
