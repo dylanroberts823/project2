@@ -40,6 +40,9 @@ def book():
 
 @socketio.on("submit msg")
 def msg(msg):
+    #Ensure maximum 100 messages are stored
+    if len(messages) == 100:
+        del messages[0]
     messages.append(msg)
     emit("msg totals", messages, broadcast=True)
 
