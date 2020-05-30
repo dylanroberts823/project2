@@ -64,3 +64,7 @@ def book():
 def msg(msg):
     messages.append(msg)
     emit("msg totals", messages, broadcast=True)
+
+@socketio.on("load channel")
+def msg():
+    emit("msg totals", messages, broadcast=True)

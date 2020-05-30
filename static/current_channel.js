@@ -8,18 +8,51 @@ if(!localStorage.getItem('current_channel')){
 //Test to be sure name was properly stored
 console.log(localStorage.getItem('current_channel'));
 
-
+//Changes code somehow
 document.addEventListener('DOMContentLoaded', () => {
   //Display name inside text body
-  document.querySelector('#channel_display').innerHTML = localStorage.getItem('current_channel');
+  var channel = localStorage.getItem('current_channel')
+  document.querySelector('#channel_display').innerHTML = channel;
 
-  //On selecting channel in drop down, change channel
-  document.querySelectorAll('.dropdown-item').forEach(button => {
-      button.onclick = () => {
-          const selection = button.dataset.channel;
-          localStorage.setItem('current_channel', selection);
-          document.querySelector('#channel_display').innerHTML = localStorage.getItem('current_channel');
-      };
-  });
+  // Connect to websocket
+  var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
+  // When connected, configure buttons
+  socket.on('connect', () => {
+      //On selecting channel in drop down, change channel
+      document.querySelectorAll('.dropdown-item').forEach(button => {
+          button.onclick = () => {
+              //Pull which button was pressed
+              const selection = button.dataset.channel;
+
+              //Set the local variable for the current channel
+              localStorage.setItem('current_channel', selection);
+
+              //Change the display to the current channel
+              document.querySelector('#channel_display').innerHTML = selection;
+
+              //Clear the message display
+              document.querySelector('#messages').innerHTML = "";
+
+              //Send change signal, getting latest messages
+              socket.emit('load channel');
+          };
+      });
+    });
+    /*
+
+              //Create list item
+              messages.forEach((msg) => {
+                //Create new object
+                if(msg["channel"] == selection){
+                  var para = document.createElement("P");
+                  para.innerText = msg["msg"] + "\n" + "Sent by " + msg["user"] + " at " + msg["time"];
+
+                  // Add new item to message list
+                  document.querySelector('#messages').append(para);
+                };
+              })
+          };
+        });
+  }); */
 });
