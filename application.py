@@ -30,7 +30,6 @@ def book():
 
     #Make sure that a name isn't blank
 
-
     # Make sure the name doesn't already exist.
 
     #Create the chat

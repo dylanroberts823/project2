@@ -45,5 +45,29 @@
       </nav>
         {% block body %}
         {% endblock %}
+        <script>
+        //This script enables for the initial data to load for the page
+            //Store most recent messages in varibale
+            var messages = {{messages|tojson}};
+
+            //Store current/last used channel
+            var selection = localStorage.getItem('current_channel')
+
+            //Generate list on screen
+            for (i in messages) {
+              //Create new message to be analyzed
+              var msg = messages[i];
+
+              //Add messages only if they belong to the current channel
+              if(msg["channel"] == selection){
+                //Create paragraph item to be added
+                var para = document.createElement("P");
+                para.innerText = msg["msg"] + "\n" + "Sent by " + msg["user"] + " at " + msg["time"];
+
+                // Add new item to message list
+                document.querySelector('#messages').append(para);
+              };
+            };
+        </script>
     </body>
 </html>
