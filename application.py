@@ -21,28 +21,6 @@ channels = [{"channel_id": "General", "channel_messages":[]},
 def index():
     return render_template("index.html", messages=messages, channels=channels)
 
-@app.route("/default")
-def default():
-    return render_template("index.html", messages="default")
-
-@app.route("/alt1")
-def atl1():
-    return render_template("index.html", messages="alt1")
-
-@app.route("/alt2")
-def alt2():
-    return render_template("index.html", messages="alt2")
-
-
-#Access a route for every chat
-@app.route("/chats/<string:chat_id>")
-def chats(chat_id):
-    #for message in messages:
-    #    print(message['user'])
-
-    #Get all the flight's messages
-    return render_template("chats.html", chats = chats)
-
 @app.route("/create", methods=["POST"])
 def book():
     """Create a chat"""
