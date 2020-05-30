@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Each button should emit a "submit vote" event
         document.querySelector('#new-msg').onsubmit = () => {
           // Create new item for list
+          const channel = localStorage.getItem('current_channel');
+
           const msg = document.querySelector('#msg').value;
 
           //Get user
@@ -27,8 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
           //Get time
           const time = Date();
 
+
+
           //Send message, user and time to SocketIO as JSON
-          socket.emit('submit msg', {"msg":msg, "user":user, "time":time});
+          socket.emit('submit msg', {"channel": channel, "msg":msg, "user":user, "time":time});
 
           // Clear input field and disable button again
           document.querySelector('#msg').value = '';
@@ -44,14 +48,19 @@ document.addEventListener('DOMContentLoaded', () => {
         //clear list
         document.querySelector('#messages').innerHTML = "";
 
+        //Get current channel
+        const channel = localStorage.getItem('current_channel');
+        
         //Create list item
         messages.forEach((msg) => {
           //Create new object
-          var para = document.createElement("P");
-          para.innerText = msg["msg"] + "\n" + "Sent by " + msg["user"] + " at " + msg["time"];
+          if(msg["channel"] == channel){
+            var para = document.createElement("P");
+            para.innerText = msg["msg"] + "\n" + "Sent by " + msg["user"] + " at " + msg["time"];
 
-          // Add new item to message list
-          document.querySelector('#messages').append(para);
+            // Add new item to message list
+            document.querySelector('#messages').append(para);
+          };
         })
     });
 });
