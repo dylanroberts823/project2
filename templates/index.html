@@ -4,10 +4,11 @@
         <script src="{{ url_for('static', filename='sign_up.js') }}"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
         <script src="{{ url_for('static', filename='index.js') }}"></script>
+        <script src="{{ url_for('static', filename='current_channel.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-      <h2>Channel Name</h2>
+      <h2 id="channel_display"></h2>
       <ul id="messages">
       </ul>
       <form class = "fixed-bottom" id="new-msg">

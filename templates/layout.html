@@ -28,7 +28,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% for channel in channels %}
-                <a class="dropdown-item" href="/{{ channel['channel_id'] }}">{{ channel['channel_id'] }}</a>
+                <a class="dropdown-item" data-channel="{{ channel['channel_id'] }}">{{ channel['channel_id'] }}</a>
                 {% endfor %}
               </div>
             </li>

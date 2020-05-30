@@ -13,9 +13,9 @@ socketio = SocketIO(app)
 messages = []
 #The chat array will contain all the chats, with their respective names and messages, and those messages' information
 #Json Chat object will be {chat_id: chat_id; chat_messages : messages}
-channels = [{"channel_id": "default", "channel_messages":[]},
-            {"channel_id": "alt1", "channel_messages":[]},
-            {"channel_id": "alt2", "channel_messages":[]}]
+channels = [{"channel_id": "General", "channel_messages":[]},
+            {"channel_id": "Alt1", "channel_messages":[]},
+            {"channel_id": "Alt2", "channel_messages":[]}]
 
 @app.route("/")
 def index():
