@@ -10,9 +10,15 @@
       <h2>Channel Name</h2>
       <ul id="messages">
       </ul>
-      <form id="new-msg">
-          <input id="msg" autocomplete="off" autofocus placeholder="Type Here" type="text">
-          <input id="submit" type="submit"></input>
+      <form class = "fixed-bottom" id="new-msg">
+        <div class="form-row ml-2">
+          <div class="col-9">
+            <input id="msg" autocomplete="off" autofocus placeholder="Type Here" type="text" class="form-control">
+          </div>
+          <div class="col-auto">
+            <input id="submit" type="submit" class="btn btn-primary mb-2 form-control"></input>
+          </div>
+        </div>
       </form>
       <div id="msg_array">{{messages}}</div>
 {% endblock %}
