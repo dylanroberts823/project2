@@ -45,6 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // When a new vote is announced, add to the unordered list
     socket.on('msg totals', messages => {
+        //Create boolean (useful for later)
+        var atBottom = new Boolean(window.innerHeight + window.scrollY >= document.body.offsetHeight);
+        console.log(atBottom);
+        var page_height = window.scrollY;
+
+        //Get the button, to modify
+        mybutton = document.getElementById("myBtn");
+
         //clear list
         document.querySelector('#messages').innerHTML = "";
 
@@ -55,12 +63,38 @@ document.addEventListener('DOMContentLoaded', () => {
         messages.forEach((msg) => {
           //Create new object
           if(msg["channel"] == channel){
+
+            //Create paragraph item to be added
             var para = document.createElement("P");
             para.innerText = msg["msg"] + "\n" + "Sent by " + msg["user"] + " at " + msg["time"];
 
+            //Add additional styling if it's the user's own message
+            if(msg["user"] == localStorage.getItem('user')){
+              para.className = "card text-right bg-primary text-white";
+            } else {
+              para.className = "card bg-light text-dark";
+            };
+
             // Add new item to message list
             document.querySelector('#messages').append(para);
+
+            //Set down button to alert that new messages are there
+            document.body.scrollTop = page_height;
+
+            //If we are at the bottom, scroll down to see the new message
+            if(atBottom == true) {
+              //Scroll down
+              window.scrollBy(0, 100);
+              //Set down button to default class
+              mybutton.className = "fixed-bottom mx-auto btn btn-info mb-2";
+              mybutton.innerHTML = "Bottom";
+              console.log("if at bottom");
+            } else {
+              mybutton.className = "fixed-bottom mx-auto btn btn-danger mb-2";
+              mybutton.innerHTML = "New Message";
+              console.log("else at bottom");
+            }
           };
         });
-    });
+      });
 });

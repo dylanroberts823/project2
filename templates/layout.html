@@ -18,7 +18,7 @@
     </head>
     <body class="m-2">
     <! Bootstrap drop down menu>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <a class="navbar-brand" href="#" id = "user_display"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,6 +38,10 @@
             </li>
             <li class="nav-item">
               <a class="nav-link btn" id="create_channel">New Channel</a>
+            </li>
+              <a class="nav-link navbar-brand" id="channel_display"></a>
+            <li class="nav-item">
+
             </li>
           </ul>
         </div>
@@ -62,6 +66,13 @@
                 //Create paragraph item to be added
                 var para = document.createElement("P");
                 para.innerText = msg["msg"] + "\n" + "Sent by " + msg["user"] + " at " + msg["time"];
+
+                //If they are the author, change the styling
+                if(msg["user"] == localStorage.getItem('user')){
+                  para.className = "card text-right bg-primary text-white";
+                } else {
+                  para.className = "card bg-light text-dark";
+                };
 
                 // Add new item to message list
                 document.querySelector('#messages').append(para);

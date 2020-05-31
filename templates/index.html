@@ -6,15 +6,18 @@
         <script src="{{ url_for('static', filename='current_channel.js') }}"></script>
         <script src="{{ url_for('static', filename='sign_up.js') }}"></script>
         <script src="{{ url_for('static', filename='create_channel.js') }}"></script>
+        <script src="{{ url_for('static', filename='bottomFunction.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-      <h2 id="channel_display"></h2>
+    <div>
       <ul id="messages">
       </ul>
-      <form class = "fixed-bottom" id="new-msg">
+    </div>
+    <div>
+      <form class = "sticky-bottom" id="new-msg">
         <div class="form-row ml-2">
-          <div class="col-9">
+          <div class="col-8">
             <input id="msg" autocomplete="off" autofocus placeholder="Type Here" type="text" class="form-control">
           </div>
           <div class="col-auto">
@@ -22,5 +25,10 @@
           </div>
         </div>
       </form>
-      <div id="msg_array">{{messages}}</div>
+     </div>
+     <div>
+        <button onclick="bottomFunction()" id="myBtn" title="Go to bottom" class="fixed-bottom mx-auto btn btn-info mb-2">Bottom</button>
+     </div>
+
+
 {% endblock %}
