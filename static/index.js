@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // By default, submit button is disabled
-    document.querySelector('#submit').disabled = true;
+    document.querySelector('#submit-msg').disabled = true;
 
     // Enable button only if there is text in the input field
     document.querySelector('#msg').onkeyup = () => {
         if (document.querySelector('#msg').value.length > 0)
-            document.querySelector('#submit').disabled = false;
+            document.querySelector('#submit-msg').disabled = false;
         else
-            document.querySelector('#submit').disabled = true;
+            document.querySelector('#submit-msg').disabled = true;
     };
 
     // Connect to websocket
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // Clear input field and disable button again
           document.querySelector('#msg').value = '';
-          document.querySelector('#submit').disabled = true;
+          document.querySelector('#submit-msg').disabled = true;
 
           // Stop form from submitting
           return false;
