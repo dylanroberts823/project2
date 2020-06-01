@@ -14,48 +14,61 @@ messages = []
 #The chat array will contain all the chats, with their respective names and messages, and those messages' information
 #Json Chat object will be {chat_id: chat_id; chat_messages : messages}
 channels = [{"channel_id": "General"},
-            {"channel_id": "Alt1"},
+            {"channel_id": "Random"},
             ]
-
+#Default route
 @app.route("/")
 def index():
     return render_template("index.html", messages=messages, channels=channels)
 
-@app.route("/create", methods=["GET", "POST"])
-def book():
-    """Create a chat"""
-    #Make sure user is logged in
-
-    # Get form information.
-    name = request.form.get("name")
-
-    #Make sure that a name isn't blank
-
-    # Make sure the name doesn't already exist.
-
-    #Create the chat
-
-    #Open the chat
-    return render_template("success.html")
-
+#When a message is sent, it is received here
 @socketio.on("submit msg")
 def msg(msg):
-    #Ensure maximum 100 messages are stored
-    if len(messages) == 100:
-        del messages[0]
+    #Set a counter
+    count = 1
+
+    #Get message's channel
+    channel = msg["channel"]
+
+    #Count how many messages are in the channel
+    for message in messages:
+        if (message["channel"] == msg["channel"]):
+            count += 1
+            print(count)
+
+    #Ensure maximum 100 messages are stored per channel
+    if (count) == 101:
+        #Create a boolean to track if the
+        deleted = False
+
+        #Create a counter to find the right index
+        index = 0
+
+        #Find and delete the first message in the channel
+        while deleted == False:
+            if (messages[index]["channel"] == channel):
+                del messages[index]
+                deleted = True
+                print(deleted)
+            index +=1
+
+    #Append message latest master channel list
     messages.append(msg)
     emit("msg totals", messages, broadcast=True)
 
+#When we change channels, the messages are sent here
 @socketio.on("load channel")
 def load_channel():
     emit("msg totals", messages, broadcast=True)
 
+#When we create a channel, the data is stored here
 @socketio.on("create channel")
 def create_channel(new_channel):
     #Verify that the new channel doesn't clash with any pre-existing ones
     for channel in channels:
         if channel["channel_id"] == new_channel:
-            return render_template('error.html', error="That channel already exists, please try again")
+            emit("identical channel", broadcast=True)
+            return None
     #Since new channel doesn't conflict, save it to our list
     channel_obj = {"channel_id": new_channel}
     channels.append(channel_obj)

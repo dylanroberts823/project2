@@ -20,4 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     //Ideally, I'd refer to the flask page, but index will do
     window.location.href = "";
   });
+
+  //When a new channel has been created, load that page
+  socket.on('identical channel', () => {
+     //Alert wrong channel
+     alert("Sorry, that channel is already taken. Please try again.");
+     //Get input from user
+     var new_channel = prompt("Please select a name for your channel", "Channel Name");
+     //Send message, user and time to SocketIO as JSON
+     socket.emit('create channel', new_channel);
+  });
 });
