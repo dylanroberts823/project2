@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
-// When the user clicks on the button, scroll to the top of the document
+// When the user clicks on the button, scroll to the bottom of the document
 function bottomFunction() {
-  document.body.scrollTop = window.innerHeight + window.scrollY;
+  document.body.scrollTop = document.body.offsetHeight;
 }
