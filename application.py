@@ -1,18 +1,25 @@
 import os
 import array
 
-from flask import Flask, redirect, render_template, request, jsonify
+from flask import Flask, render_template, request, session
 from flask_socketio import SocketIO, emit
+from flask_session import Session
+
+app = Flask(__name__)
+
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
 #The messages array stores all the messages with their respective names, text and timestamp
-##Json msg object will be {msg_text:text; msg_date:date; msg_user:user}
+# python list object will be {msg_text:text; msg_date:date; msg_user:user}
 messages = []
 #The chat array will contain all the chats, with their respective names and messages, and those messages' information
-#Json Chat object will be {chat_id: chat_id; chat_messages : messages}
+#python list object will be {chat_id: chat_id; chat_messages : messages}
 channels = [{"channel_id": "General"},
             {"channel_id": "Random"},
             ]

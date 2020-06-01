@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = "";
   });
 
-  //When a new channel has been created, load that page
+  //If it's the same channel, display error message
   socket.on('identical channel', () => {
      //Alert wrong channel
      alert("Sorry, that channel is already taken. Please try again.");
