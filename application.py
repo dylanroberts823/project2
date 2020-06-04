@@ -71,13 +71,8 @@ def load_channel():
 #When we create a channel, the data is stored here
 @socketio.on("create channel")
 def create_channel(new_channel):
-    #Verify that the new channel doesn't clash with any pre-existing ones
-    for channel in channels:
-        if channel["channel_id"] == new_channel:
-            emit("identical channel", broadcast=True)
-            return None
-    #Since new channel doesn't conflict, save it to our list
+    #Save the channel to our list
     channel_obj = {"channel_id": new_channel}
     channels.append(channel_obj)
     #Update all the other channels
-    emit("redirect channel", new_channel, broadcast=True)
+    emit("redirect channel", broadcast=True)
