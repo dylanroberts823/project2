@@ -41,6 +41,7 @@ def msg(msg):
     for message in messages:
         if (message["channel"] == msg["channel"]):
             count += 1
+            #Testing for counter
             print(count)
 
     #Ensure maximum 100 messages are stored per channel

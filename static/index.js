@@ -43,15 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // When a new vote is announced, add to the unordered list
+    // When a message is sent announced, add to the unordered list
     socket.on('msg totals', messages => {
-        //Create boolean (useful for later)
-        var atBottom = new Boolean(window.innerHeight + window.scrollY >= document.body.offsetHeight);
-        console.log(atBottom);
-        var page_height = window.scrollY;
-
-        //Get the button, to modify
-        mybutton = document.getElementById("myBtn");
 
         //clear list
         document.querySelector('#messages').innerHTML = "";
@@ -77,23 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Add new item to message list
             document.querySelector('#messages').append(para);
-
-            //Set down button to alert that new messages are there
-            document.body.scrollTop = page_height;
-
-            //If we are at the bottom, scroll down to see the new message
-            if(atBottom == true) {
-              //Scroll down
-              window.scrollBy(0, 100);
-              //Set down button to default class
-              mybutton.className = "fixed-bottom mx-auto btn btn-info mb-2";
-              mybutton.innerHTML = "Bottom";
-              console.log("if at bottom");
-            } else {
-              mybutton.className = "fixed-bottom mx-auto btn btn-danger mb-2";
-              mybutton.innerHTML = "New Message";
-              console.log("else at bottom");
-            }
           };
         });
       });

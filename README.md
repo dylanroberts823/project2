@@ -4,7 +4,7 @@ Web Programming with Python and JavaScript
 
 This applications enables chat function between an undefined number of signed-in users. Users need only visit the site for the first time, then put in a username to get started.
 
-Some of the functions and styling worked on Firefox, but not Chrome. Beware while testing. 
+Some of the functions and styling worked on Firefox, but not Chrome. Beware while testing.
 
 This bones of this application consist of:
 - Application.py: an application that manages the index page and the all the sockets
@@ -19,8 +19,6 @@ This bones of this application consist of:
 
 
 There are some bugs and things I'd like to do better, but don't have time to. They are as follows:
-- Bottom button: disappear initially, at least until page is filled with messages
-- Cancel button: doesn't allow user to leave the page off the bat
-- Read function
+- Read function - new message shows up as soon as someone makes a change, not as soon as there's a new message in that specific chat
 - User profile pic
 - Put create channel button on left
